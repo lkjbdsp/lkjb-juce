@@ -32,7 +32,7 @@
 // BEGIN SECTION A
 
 #ifndef JUCER_ENABLE_GPL_MODE
- #define JUCER_ENABLE_GPL_MODE 0
+ #define JUCER_ENABLE_GPL_MODE 1 // lkjb plugins using JUCe are GPL licensed.
 #endif
 
 // END SECTION A

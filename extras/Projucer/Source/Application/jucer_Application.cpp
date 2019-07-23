@@ -174,7 +174,7 @@ void ProjucerApplication::handleAsyncUpdate()
     MenuBarModel::setMacMainMenu (menuModel.get(), &extraAppleMenuItems); //, "Open Recent");
    #endif
 
-    versionChecker.reset (new LatestVersionChecker());
+    //versionChecker.reset (new LatestVersionChecker());
 
     if (licenseController != nullptr)
     {
@@ -197,7 +197,7 @@ void ProjucerApplication::initialiseWindows (const String& commandLine)
 
     mainWindowList.createWindowIfNoneAreOpen();
 
-    if (licenseController->getState().applicationUsageDataState == LicenseState::ApplicationUsageData::notChosenYet)
+    if (licenseController != nullptr && licenseController->getState().applicationUsageDataState == LicenseState::ApplicationUsageData::notChosenYet)
         showApplicationUsageDataAgreementPopup();
 }
 
@@ -217,7 +217,7 @@ void ProjucerApplication::shutdown()
         Logger::writeToLog ("Server shutdown cleanly");
     }
 
-    versionChecker.reset();
+    //versionChecker.reset();
     utf8Window.reset();
     svgPathWindow.reset();
     aboutWindow.reset();
@@ -1276,18 +1276,22 @@ void ProjucerApplication::showAboutWindow()
 
 void ProjucerApplication::showApplicationUsageDataAgreementPopup()
 {
-    if (applicationUsageDataWindow != nullptr)
-        applicationUsageDataWindow->toFront (true);
-    else
-        new FloatingToolWindow ("Application Usage Analytics", {},
-                                new ApplicationUsageDataWindowComponent (isPaidOrGPL()), applicationUsageDataWindow, false,
-                                400, 300, 400, 300, 400, 300);
+    // lkjb: don't collect applivation usage.
+
+    //if (applicationUsageDataWindow != nullptr)
+    //    applicationUsageDataWindow->toFront (true);
+    //else
+    //    new FloatingToolWindow ("Application Usage Analytics", {},
+    //                            new ApplicationUsageDataWindowComponent (isPaidOrGPL()), applicationUsageDataWindow, false,
+    //                            400, 300, 400, 300, 400, 300);
 }
 
 void ProjucerApplication::dismissApplicationUsageDataAgreementPopup()
 {
-    if (applicationUsageDataWindow != nullptr)
-        applicationUsageDataWindow.reset();
+    // lkjb: don't collect applivation usage.
+
+    //if (applicationUsageDataWindow != nullptr)
+    //    applicationUsageDataWindow.reset();
 }
 
 void ProjucerApplication::showPathsWindow (bool highlightJUCEPath)
@@ -1401,9 +1405,9 @@ PropertiesFile::Options ProjucerApplication::getPropertyFileOptionsFor (const St
     options.filenameSuffix      = "settings";
     options.osxLibrarySubFolder = "Application Support";
    #if JUCE_LINUX
-    options.folderName          = "~/.config/Projucer";
+    options.folderName          = "~/.config/Projucer (lkjb mod)";
    #else
-    options.folderName          = "Projucer";
+    options.folderName          = "Projucer (lkjb mod)";
    #endif
 
     if (isProjectSettings)
@@ -1535,7 +1539,7 @@ void ProjucerApplication::setColourScheme (int index, bool saveSetting)
     if (utf8Window != nullptr)                  utf8Window->sendLookAndFeelChange();
     if (svgPathWindow != nullptr)               svgPathWindow->sendLookAndFeelChange();
     if (aboutWindow != nullptr)                 aboutWindow->sendLookAndFeelChange();
-    if (applicationUsageDataWindow != nullptr)  applicationUsageDataWindow->sendLookAndFeelChange();
+    //if (applicationUsageDataWindow != nullptr)  applicationUsageDataWindow->sendLookAndFeelChange(); // lkjb: don't collect application usage data.
     if (pathsWindow != nullptr)                 pathsWindow->sendLookAndFeelChange();
     if (editorColourSchemeWindow != nullptr)    editorColourSchemeWindow->sendLookAndFeelChange();
     if (pipCreatorWindow != nullptr)            pipCreatorWindow->sendLookAndFeelChange();

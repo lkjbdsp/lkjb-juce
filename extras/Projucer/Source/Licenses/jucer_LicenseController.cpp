@@ -182,7 +182,8 @@ void LicenseController::setApplicationUsageDataState (LicenseState::ApplicationU
     if (state.applicationUsageDataState != newState)
     {
         state.applicationUsageDataState = newState;
-        ProjucerApplication::getApp().setAnalyticsEnabled (newState == LicenseState::ApplicationUsageData::enabled);
+        ProjucerApplication::getApp().setAnalyticsEnabled(false);// lkjb: don't collect application usage data.
+        //ProjucerApplication::getApp().setAnalyticsEnabled (newState == LicenseState::ApplicationUsageData::enabled);
 
         updateState (state);
     }

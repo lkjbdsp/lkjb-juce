@@ -33,9 +33,9 @@ class AboutWindowComponent    : public Component
 public:
     AboutWindowComponent()
     {
+       #if ! JUCER_ENABLE_GPL_MODE
         bool showPurchaseButton = false;
 
-       #if ! JUCER_ENABLE_GPL_MODE
         if (auto* controller = ProjucerApplication::getApp().licenseController.get())
             showPurchaseButton = (controller->getState().type != LicenseState::Type::indie
                                && controller->getState().type != LicenseState::Type::pro);
@@ -60,6 +60,7 @@ public:
         addAndMakeVisible (aboutButton);
         aboutButton.setTooltip ( {} );
 
+#if ! JUCER_ENABLE_GPL_MODE
         if (showPurchaseButton)
         {
             addAndMakeVisible (licenseButton);
@@ -70,6 +71,7 @@ public:
                     controller->chooseNewLicense();
             };
         }
+#endif
     }
 
     void resized() override

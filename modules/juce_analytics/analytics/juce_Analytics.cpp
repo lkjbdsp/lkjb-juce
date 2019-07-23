@@ -47,10 +47,12 @@ void Analytics::setUserProperties (StringPairArray properties)
     userProperties = properties;
 }
 
-void Analytics::logEvent (const String& eventName,
-                          const StringPairArray& parameters,
-                          int eventType)
+void Analytics::logEvent (const String& /*eventName*/,
+                          const StringPairArray& /*parameters*/,
+                          int /*eventType*/)
 {
+    // lkjb: hopefully this completely disables logging in GPL mode.
+#if ! JUCER_ENABLE_GPL_MODE
     if (! isSuspended)
     {
         AnalyticsDestination::AnalyticsEvent event
@@ -66,6 +68,7 @@ void Analytics::logEvent (const String& eventName,
         for (auto* destination : destinations)
             destination->logEvent (event);
     }
+#endif
 }
 
 void Analytics::setSuspended (bool shouldBeSuspended)

@@ -159,7 +159,7 @@ public:
     OpenDocumentManager openDocumentManager;
     std::unique_ptr<ApplicationCommandManager> commandManager;
 
-    std::unique_ptr<Component> utf8Window, svgPathWindow, aboutWindow, applicationUsageDataWindow,
+    std::unique_ptr<Component> utf8Window, svgPathWindow, aboutWindow, /*applicationUsageDataWindow,*/ // lkjb: don't collect application usage data.
                                pathsWindow, editorColourSchemeWindow, pipCreatorWindow;
 
     std::unique_ptr<FileLogger> logger;
@@ -196,7 +196,9 @@ private:
     //==============================================================================
     void* server = nullptr;
 
-    std::unique_ptr<LatestVersionChecker> versionChecker;
+    // Don't check for updates as this JUCE fork is meant to build lkb plugins
+    // which aren't regularily updated to current JUCE versions.
+    //std::unique_ptr<LatestVersionChecker> versionChecker; 
     TooltipWindow tooltipWindow;
 
     AvailableModuleList jucePathModuleList, userPathsModuleList;

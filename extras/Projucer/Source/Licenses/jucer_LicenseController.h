@@ -53,7 +53,7 @@ struct LicenseState
     };
 
     Type type = Type::notLoggedIn;
-    ApplicationUsageData applicationUsageDataState = ApplicationUsageData::notChosenYet;
+    ApplicationUsageData applicationUsageDataState = ApplicationUsageData::disabled; // lkjb: don't collect application usage data.
     String username;
     String email;
     String authToken;
